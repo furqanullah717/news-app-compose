@@ -106,37 +106,35 @@ fun NewsItem(news: News) {
             .height(130.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(Color.Red.copy(alpha = 0.2f))
-            .padding(8.dp)
     ) {
         AsyncImage(
             model = news.image,
             contentDescription = null,
             modifier = Modifier
-                .fillMaxWidth()
-                .height(130.dp)
+                .fillMaxSize()
                 .clip(RoundedCornerShape(16.dp)),
             contentScale = ContentScale.Crop
         )
-        Text(
-            text = news.title,
-            color = Color.White,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.align(Alignment.TopCenter)
-        )
-        Text(
-            text = news.publish_date,
-            color = Color.White,
-            modifier = Modifier.align(Alignment.BottomEnd)
-        )
+        Box(modifier =Modifier.fillMaxSize().padding(8.dp)){
+            Text(
+                text = news.title,
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.align(Alignment.TopCenter)
+            )
+            Text(
+                text = news.publish_date,
+                color = Color.White,
+                modifier = Modifier.align(Alignment.BottomEnd)
+            )
 
-        Text(
-            text = news.authors.joinToString(", "),
-            color = Color.White,
-            modifier = Modifier.align(Alignment.BottomStart)
-        )
-
+            Text(
+                text = news.authors.joinToString(", "),
+                color = Color.White,
+                modifier = Modifier.align(Alignment.BottomStart)
+            )
+        }
     }
-
 }
 
 @Composable
