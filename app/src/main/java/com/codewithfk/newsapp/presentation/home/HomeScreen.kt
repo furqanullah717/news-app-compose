@@ -3,6 +3,7 @@ package com.codewithfk.newsapp.presentation.home
 import android.widget.Space
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,13 +32,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.codewithfk.newsapp.R
 import com.codewithfk.newsapp.data.model.News
 import com.codewithfk.newsapp.presentation.State
+import com.codewithfk.newsapp.utils.NavRoute
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavHostController) {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState = viewModel.state.collectAsState()
     val searchText = remember {
@@ -49,7 +52,8 @@ fun HomeScreen() {
             .padding(24.dp)
     ) {
         //search bar
-        SearchBar(text = searchText.value, onSearch = { searchText.value = it
+        SearchBar(text = searchText.value, onSearch = {
+            searchText.value = it
             viewModel.getNews(text = it)
         })
         Spacer(modifier = Modifier.height(16.dp))
@@ -89,7 +93,9 @@ fun HomeScreen() {
                         Text(text = "News")
                     }
                     items(data.news) { article ->
-                        NewsItem(article)
+                        NewsItem(article, onClick = {
+                            navController.navigate(NavRoute.createNewsDetailsRoute(article))/**/
+                        })
                     }
                 }
             }
@@ -98,7 +104,7 @@ fun HomeScreen() {
 }
 
 @Composable
-fun NewsItem(news: News) {
+fun NewsItem(news: News, onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .padding(vertical = 4.dp)
@@ -106,6 +112,7 @@ fun NewsItem(news: News) {
             .height(130.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(Color.Red.copy(alpha = 0.2f))
+            .clickable { onClick() }
     ) {
         AsyncImage(
             model = news.image,
@@ -115,7 +122,11 @@ fun NewsItem(news: News) {
                 .clip(RoundedCornerShape(16.dp)),
             contentScale = ContentScale.Crop
         )
-        Box(modifier =Modifier.fillMaxSize().padding(8.dp)){
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp)
+        ) {
             Text(
                 text = news.title,
                 color = Color.White,
@@ -129,7 +140,7 @@ fun NewsItem(news: News) {
             )
 
             Text(
-                text = news.authors.joinToString(", "),
+                text = news.authors?.joinToString(", ")?:"",
                 color = Color.White,
                 modifier = Modifier.align(Alignment.BottomStart)
             )

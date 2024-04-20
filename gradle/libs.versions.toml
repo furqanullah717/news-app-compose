@@ -15,6 +15,8 @@ gson = "2.8.6"
 firebaseCrashlyticsBuildtools = "2.9.9"
 hilt-compose = "1.2.0"
 coil = "2.6.0"
+compose-navigation = "2.7.7"
+compose-constraint = "1.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -43,6 +45,9 @@ gson  = {module = "com.google.code.gson:gson", version.ref = "gson"}
 dagger-hilt-compose  = {module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt-compose"}
 firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "firebase-crashlytics-buildtools", version.ref = "firebaseCrashlyticsBuildtools" }
 coil = {module = "io.coil-kt:coil-compose" , version.ref = "coil"}
+compose-navigation = {module = "androidx.navigation:navigation-compose" , version.ref = "compose-navigation"}
+compose-constraint = {module = "androidx.constraintlayout:constraintlayout-compose" , version.ref = "compose-constraint"}
+
 
 
 [plugins]
