@@ -88,17 +88,22 @@ fun HomeScreen(navController: NavHostController) {
 
             else -> {
                 val data = (uiState.value as State.Success).data
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    item {
-                        Text(text = "News")
-                    }
-                    items(data.news) { article ->
-                        NewsItem(article, onClick = {
-                            navController.navigate(NavRoute.createNewsDetailsRoute(article))/**/
-                        })
-                    }
+                NewsListView(news = data.news) {
+                    navController.navigate(NavRoute.createNewsDetailsRoute(it))
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun NewsListView(news: List<News>, onClick: (News) -> Unit) {
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
+        item {
+            Text(text = "News")
+        }
+        items(news) { article ->
+            NewsItem(article, onClick = { onClick(article) })
         }
     }
 }
@@ -140,7 +145,7 @@ fun NewsItem(news: News, onClick: () -> Unit) {
             )
 
             Text(
-                text = news.authors?.joinToString(", ")?:"",
+                text = news.authors?.joinToString(", ") ?: "",
                 color = Color.White,
                 modifier = Modifier.align(Alignment.BottomStart)
             )

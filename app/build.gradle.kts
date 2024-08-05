@@ -90,4 +90,9 @@ dependencies {
     implementation(libs.compose.navigation)
     implementation(libs.compose.constraint)
 
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    kapt(libs.room.kapt)
+    implementation(libs.room.ktx)
+
 }

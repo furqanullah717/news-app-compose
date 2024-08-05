@@ -17,6 +17,7 @@ hilt-compose = "1.2.0"
 coil = "2.6.0"
 compose-navigation = "2.7.7"
 compose-constraint = "1.0.1"
+room-version = "2.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,8 +48,10 @@ firebase-crashlytics-buildtools = { group = "com.google.firebase", name = "fireb
 coil = {module = "io.coil-kt:coil-compose" , version.ref = "coil"}
 compose-navigation = {module = "androidx.navigation:navigation-compose" , version.ref = "compose-navigation"}
 compose-constraint = {module = "androidx.constraintlayout:constraintlayout-compose" , version.ref = "compose-constraint"}
-
-
+room-runtime = {module = "androidx.room:room-runtime", version.ref = "room-version"}
+room-compiler = {module = "androidx.room:room-compiler", version.ref = "room-version"}
+room-kapt = {module = "androidx.room:room-compiler", version.ref = "room-version"}
+room-ktx = {module = "androidx.room:room-ktx", version.ref = "room-version"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
